@@ -2,6 +2,10 @@
 
 A browser-based resume analysis tool that helps users evaluate resumes by extracting key information, estimating ATS compatibility, matching resumes with job descriptions, identifying skill gaps, and ranking multiple candidates.
 
+## 📸 Application Preview
+
+![AI Resume Analyzer Dashboard](assets/dashboard.png)
+
 ## ✨ Features
 
 - 📂 Upload resumes in PDF, DOCX, and TXT formats
