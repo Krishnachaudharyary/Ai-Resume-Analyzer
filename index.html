@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">RA</div>
+          <div>
+            <h1>AI Resume Analyzer</h1>
+            <p>Score, match, improve, and rank resumes.</p>
+          </div>
+        </div>
+
+        <nav class="tabs" aria-label="Analyzer sections">
+          <button class="tab active" data-tab="analyze" type="button">Analyze</button>
+          <button class="tab" data-tab="match" type="button">Job Match</button>
+          <button class="tab" data-tab="rank" type="button">Rank</button>
+        </nav>
+
+        <section class="panel compact">
+          <h2>Resume</h2>
+          <label class="drop-zone" for="resumeFile">
+            <input id="resumeFile" type="file" accept=".pdf,.docx,.txt" />
+            <span class="drop-icon">+</span>
+            <strong>Upload PDF, DOCX, or TXT</strong>
+            <small id="resumeFileName">No file selected</small>
+          </label>
+          <label class="field">
+            <span>Resume text</span>
+            <textarea id="resumeText" rows="12" placeholder="Paste resume text here if extraction is unavailable."></textarea>
+          </label>
+          <button id="analyzeBtn" class="primary-action" type="button">Analyze Resume</button>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Resume intelligence dashboard</p>
+            <h2 id="viewTitle">Resume Analysis</h2>
+          </div>
+          <div class="score-pill">
+            <span id="mainScore">--</span>
+            <small>Resume Score</small>
+          </div>
+        </header>
+
+        <section id="analyze" class="view active">
+          <div class="metric-grid">
+            <article class="metric">
+              <span>Resume Score</span>
+              <strong id="resumeScore">--/100</strong>
+            </article>
+            <article class="metric">
+              <span>ATS Score</span>
+              <strong id="atsScore">--%</strong>
+            </article>
+            <article class="metric">
+              <span>Experience Level</span>
+              <strong id="experienceLevel">--</strong>
+            </article>
+            <article class="metric">
+              <span>Keyword Density</span>
+              <strong id="keywordDensity">--%</strong>
+            </article>
+          </div>
+
+          <div class="content-grid">
+            <article class="panel">
+              <h3>Parsed Details</h3>
+              <dl class="details-list" id="parsedDetails"></dl>
+            </article>
+            <article class="panel">
+              <h3>Strengths</h3>
+              <ul id="strengthsList" class="status-list positive"></ul>
+            </article>
+            <article class="panel">
+              <h3>Weaknesses</h3>
+              <ul id="weaknessesList" class="status-list negative"></ul>
+            </article>
+            <article class="panel">
+              <h3>ATS Checker</h3>
+              <ul id="atsList" class="status-list"></ul>
+            </article>
+            <article class="panel wide">
+              <h3>Improvement Suggestions</h3>
+              <div id="suggestions" class="suggestions"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="match" class="view">
+          <div class="split">
+            <article class="panel">
+              <h3>Job Description</h3>
+              <textarea id="jobText" rows="13" placeholder="Paste the job description here."></textarea>
+              <button id="matchBtn" class="primary-action" type="button">Match Resume</button>
+            </article>
+            <article class="panel">
+              <h3>Match Results</h3>
+              <div class="match-score">
+                <strong id="matchScore">--%</strong>
+                <span>Match Score</span>
+              </div>
+              <div class="two-col">
+                <div>
+                  <h4>Matching Skills</h4>
+                  <ul id="matchingSkills" class="chip-list"></ul>
+                </div>
+                <div>
+                  <h4>Missing Skills</h4>
+                  <ul id="missingSkills" class="chip-list warning"></ul>
+                </div>
+              </div>
+              <h4>Skill Gap Recommendations</h4>
+              <ul id="skillRecommendations" class="status-list"></ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="rank" class="view">
+          <div class="split">
+            <article class="panel">
+              <h3>Candidate Resumes</h3>
+              <label class="drop-zone" for="rankFiles">
+                <input id="rankFiles" type="file" accept=".pdf,.docx,.txt" multiple />
+                <span class="drop-icon">+</span>
+                <strong>Upload multiple resumes</strong>
+                <small id="rankFileName">No files selected</small>
+              </label>
+              <button id="rankBtn" class="primary-action" type="button">Rank Candidates</button>
+            </article>
+            <article class="panel">
+              <h3>Ranking</h3>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Candidate</th>
+                      <th>Score</th>
+                      <th>Top Skills</th>
+                    </tr>
+                  </thead>
+                  <tbody id="rankingBody">
+                    <tr>
+                      <td colspan="4">Upload resumes to rank candidates.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <template id="suggestionTemplate">
+      <div class="suggestion-card">
+        <div>
+          <span>Current</span>
+          <p class="current"></p>
+        </div>
+        <div>
+          <span>Suggested</span>
+          <p class="suggested"></p>
+        </div>
+      </div>
+    </template>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
